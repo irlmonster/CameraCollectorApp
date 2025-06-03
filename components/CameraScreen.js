@@ -2,6 +2,7 @@ import { CameraView } from 'expo-camera';
 import { Text, TouchableOpacity, View } from 'react-native';
 import styles from '../styles/styles';
 
+
 export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, onViewImagesPress }) {
   return (
     <View style={styles.container}>

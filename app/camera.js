@@ -1,22 +1,35 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
 import { useCameraPermissions } from 'expo-camera';
-import styles from '../styles/styles';
+import { router, useFocusEffect } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import CameraScreen from '../components/CameraScreen';
 import PreviewScreen from '../components/PreviewScreen';
+import styles from '../styles/styles';
 import { saveImageToLocalStorage } from '../utils/storage';
 import { showToast } from '../utils/toast';
-import { router } from 'expo-router';
 
 export default function Page() {
   const [permission, requestPermission] = useCameraPermissions();
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState('');
+  const [cameraActive, setCameraActive] = useState(true); // NYTT!
 
   useEffect(() => {
     if (!permission) requestPermission();
   }, [permission]);
+
+  // NYTT → useFocusEffect för att hantera aktiv kamera
+  useFocusEffect(
+    useCallback(() => {
+      console.log('📸 CameraScreen ACTIVE');
+      setCameraActive(true);
+      return () => {
+        console.log('📸 CameraScreen INACTIVE');
+        setCameraActive(false);
+      };
+    }, [])
+  );
 
   if (!permission) {
     return <View style={styles.center}><Text>Kollar tillstånd...</Text></View>;
@@ -43,15 +56,17 @@ export default function Page() {
           onRetake={() => setPhoto(null)}
         />
       ) : (
-        <CameraScreen
-          cameraRef={cameraRef}
-          setCameraRef={ref => setCameraRef(ref)}
-          onCapturePress={async () => {
-            const photoData = await cameraRef.takePictureAsync();
-            setPhoto(photoData);
-          }}
-          onViewImagesPress={() => router.push('/gallery')}
-        />
+        cameraActive && ( // NYTT → visa CameraScreen bara om aktiv!
+          <CameraScreen
+            cameraRef={cameraRef}
+            setCameraRef={ref => setCameraRef(ref)}
+            onCapturePress={async () => {
+              const photoData = await cameraRef.takePictureAsync();
+              setPhoto(photoData);
+            }}
+            onViewImagesPress={() => router.push('/gallery')}
+          />
+        )
       )}
 
       {/* 🔔 Toast */}

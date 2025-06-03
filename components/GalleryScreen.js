@@ -1,7 +1,8 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, Image, ScrollView } from 'react-native';
-import styles from '../styles/styles';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { router } from 'expo-router';
+import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native';
+import styles from '../styles/styles';
+
 
 export default function GalleryScreen({
   savedImages,
@@ -20,7 +21,7 @@ export default function GalleryScreen({
         style={[styles.backButton, { opacity: 1 }]}
         onPress={() => router.back()}
       >
-        <Text style={[styles.backButtonText, { opacity: 1 }]}>⬅</Text>
+        <MaterialCommunityIcons name="chevron-left" size={32} color="#eee" />
       </TouchableOpacity>
 
       <TouchableOpacity
@@ -34,9 +35,17 @@ export default function GalleryScreen({
           }
         }}
       >
-        <Text style={styles.selectAllText}>
-          {selectedImages.length === savedImages.length ? '🚫 Avmarkera' : '✅ Markera alla'}
-        </Text>
+        <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <MaterialCommunityIcons
+            name={selectedImages.length === savedImages.length ? 'close-circle-outline' : 'checkbox-multiple-marked-outline'}
+            size={24}
+            color="#eee"
+            style={{ marginRight: 8 }}
+          />
+          <Text style={styles.selectAllText}>
+            {selectedImages.length === savedImages.length ? 'Avmarkera' : 'Markera alla'}
+          </Text>
+        </View>
       </TouchableOpacity>
 
       <ScrollView contentContainerStyle={styles.imageGrid}>
@@ -64,7 +73,15 @@ export default function GalleryScreen({
           style={styles.deleteButton}
           onPress={deleteSelectedImages}
         >
-          <Text style={styles.deleteButtonText}>🗑 Radera valda</Text>
+          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+            <MaterialCommunityIcons
+              name="trash-can-outline"
+              size={24}
+              color="#fff"
+              style={{ marginRight: 8 }}
+            />
+            <Text style={styles.deleteButtonText}>Radera valda</Text>
+          </View>
         </TouchableOpacity>
       )}
 

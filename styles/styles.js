@@ -74,10 +74,9 @@ const styles = StyleSheet.create({
   borderRadius: 40,
   borderWidth: 5,
   borderColor: 'rgba(95, 175, 69, 0.5)',
-  backgroundColor: 'rgba(255,255,255,0.2)',
+  backgroundColor: 'rgba(255,255,255,0.1)',
   alignSelf: 'center',
-},
-
+  },
 
 
   captureText: {
@@ -108,13 +107,15 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(57, 57, 57, 0.5)',
     padding: 12,
     borderRadius: 50,
-    borderWidth: 2,
+    borderWidth: 5,
     borderColor: 'rgba(95, 175, 69, 0.5)',
     width: '20%',
     aspectRatio: 1,
     alignSelf: 'center',
     marginTop: 0,
-    marginBottom: 110,
+    marginBottom: 170,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 
   retakeText: {

@@ -1,15 +1,14 @@
-import React from 'react';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import {
-  View,
+  ImageBackground,
+  ScrollView,
   Text,
   TouchableOpacity,
-  ImageBackground,
-  ScrollView
+  View
 } from 'react-native';
-import { MaterialCommunityIcons } from '@expo/vector-icons';
-import styles from '../styles/styles';
 import { CLASSES } from '../constants/classes';
 import { CLASS_ICONS } from '../constants/icons';
+import styles from '../styles/styles';
 
 export default function PreviewScreen({ photo, onClassSelect, onRetake }) {
   return (
@@ -36,7 +35,7 @@ export default function PreviewScreen({ photo, onClassSelect, onRetake }) {
         </ScrollView>
 
         <TouchableOpacity style={styles.retakeButton} onPress={onRetake}>
-          <Text style={styles.retakeText}>↺</Text>
+          <MaterialCommunityIcons name="refresh" size={32} color="#eee" />
         </TouchableOpacity>
       </View>
     </ImageBackground>
