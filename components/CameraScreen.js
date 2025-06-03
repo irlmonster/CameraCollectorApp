@@ -1,6 +1,5 @@
-import React from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
 import { CameraView } from 'expo-camera';
+import { Text, TouchableOpacity, View } from 'react-native';
 import styles from '../styles/styles';
 
 export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, onViewImagesPress }) {
@@ -12,7 +11,7 @@ export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, 
           style={[styles.captureButton, { opacity: 1 }]}
           onPress={onCapturePress}
         >
-          <Text style={[styles.captureText, { opacity: 0.7 }]}>📷</Text>
+          <Text style={[styles.captureText, { opacity: 0.7 }]}></Text>
         </TouchableOpacity>
 
         <TouchableOpacity
