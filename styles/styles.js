@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
     padding: 8,
     borderRadius: 8,
     marginVertical: 4,
+    marginHorizontal: 2,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 2,
@@ -55,7 +56,7 @@ const styles = StyleSheet.create({
 
 
   classText: {
-    fontSize: 16,
+    fontSize: 14,
     color: '#eee',
   },
 

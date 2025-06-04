@@ -25,7 +25,7 @@ export default function PreviewScreen({ photo, onClassSelect, onRetake }) {
             >
               <MaterialCommunityIcons
                 name={CLASS_ICONS[klass] || 'help-circle'}
-                size={20}
+                size={18}
                 color="#eee"
                 style={{ marginRight: 8 }}
               />
