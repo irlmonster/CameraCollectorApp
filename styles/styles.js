@@ -76,6 +76,8 @@ const styles = StyleSheet.create({
   borderColor: 'rgba(95, 175, 69, 0.5)',
   backgroundColor: 'rgba(255,255,255,0.1)',
   alignSelf: 'center',
+  alignItems: 'center',
+  justifyContent: 'center',
   },
 
 
@@ -95,7 +97,10 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(95, 175, 69, 0.5)',
     alignSelf: 'flex-start',
     margin: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
+
 
   viewImagesText: {
     fontSize: 16,
