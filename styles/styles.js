@@ -245,22 +245,32 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 
-  toast: {
+toast: {
   position: 'absolute',
-  top: 100,
-  left: 20,
-  right: 20,
-  backgroundColor: 'rgba(0,0,0,0.4)',
-  paddingVertical: 10,
-  paddingHorizontal: 16,
-  borderRadius: 8,
+  top : 120,
+  left: 40,
+  right: 40,
+  backgroundColor: 'rgba(57, 57, 57, 0.5)',
+  paddingVertical: 14,
+  paddingHorizontal: 20,
+  borderRadius: 20, // rund popup-stil
+  flexDirection: 'row',
   alignItems: 'center',
-  zIndex: 999, // säkerställer att den ligger över
+  justifyContent: 'center',
+  zIndex: 999,
+  elevation: 10,
+  shadowColor: '#000',
+  shadowOffset: { width: 0, height: 2 },
+  shadowOpacity: 0.3,
+  shadowRadius: 4,
 },
 toastText: {
   color: 'white',
-  fontSize: 14,
+  fontSize: 15,
+  flexShrink: 1,
+  textAlign: 'center',
 },
+
 
   backgroundImage: {
   flex: 1,

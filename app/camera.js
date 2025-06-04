@@ -4,9 +4,11 @@ import { useCallback, useEffect, useState } from 'react';
 import { Text, View } from 'react-native';
 import CameraScreen from '../components/CameraScreen';
 import PreviewScreen from '../components/PreviewScreen';
+import Toast from '../components/Toast';
 import styles from '../styles/styles';
 import { saveImageToLocalStorage } from '../utils/storage';
 import { showToast } from '../utils/toast';
+
 
 export default function Page() {
   const [permission, requestPermission] = useCameraPermissions();
@@ -49,14 +51,15 @@ export default function Page() {
           onClassSelect={async (klass) => {
             const path = await saveImageToLocalStorage(photo.uri, klass);
             if (path) {
-              showToast(`✅ Bild sparad i "${klass}"`, setMessage);
+              showToast(`success|Bild sparad i "${klass}"`, setMessage);
             } else {
-              showToast(`❌ Misslyckades spara bild`, setMessage);
+              showToast(`error|Misslyckades spara bild`, setMessage);
             }
             setPhoto(null);
           }}
           onRetake={() => setPhoto(null)}
         />
+
       ) : (
         cameraActive && ( // NYTT → visa CameraScreen bara om aktiv!
           <CameraScreen
@@ -73,12 +76,8 @@ export default function Page() {
         )
       )}
 
-      {/* 🔔 Toast */}
-      {message !== '' && (
-        <View style={styles.toast}>
-          <Text style={styles.toastText}>{message}</Text>
-        </View>
-      )}
+      <Toast message={message} />
+
     </>
   );
 }
