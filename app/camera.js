@@ -13,7 +13,9 @@ export default function Page() {
   const [cameraRef, setCameraRef] = useState(null);
   const [photo, setPhoto] = useState(null);
   const [message, setMessage] = useState('');
-  const [cameraActive, setCameraActive] = useState(true); // NYTT!
+  const [cameraActive, setCameraActive] = useState(true); 
+  const [flash, setFlash] = useState('off');
+
 
   useEffect(() => {
     if (!permission) requestPermission();
@@ -65,6 +67,8 @@ export default function Page() {
               setPhoto(photoData);
             }}
             onViewImagesPress={() => router.push('/gallery')}
+            flash={flash}           // <--- lägg till detta
+            setFlash={setFlash}     // <--- lägg till detta
           />
         )
       )}

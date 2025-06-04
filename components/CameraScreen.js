@@ -1,11 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView } from 'expo-camera';
-import { useState } from 'react';
 import { TouchableOpacity, View } from 'react-native';
 import styles from '../styles/styles';
 
-export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, onViewImagesPress }) {
-  const [flash, setFlash] = useState('off');
+export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, onViewImagesPress, flash, setFlash }) {
 
   return (
     <View style={styles.container}>
@@ -43,20 +41,36 @@ export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, 
           backgroundColor: 'rgba(0,0,0,0.5)',
           borderRadius: 8,
         }}
-        onPress={() =>
-          setFlash(
-            flash === 'off'
-              ? 'on'
-              : 'off'
-          )
-        }
+        onPress={() => {
+          // Växla mellan 'off', 'on', 'auto'
+          if (flash === 'off') {
+            setFlash('on');
+          } else if (flash === 'on') {
+            setFlash('auto');
+          } else {
+            setFlash('off');
+          }
+        }}
       >
         <MaterialIcons
-          name={flash === 'off' ? 'flash-off' : 'flash-on'}
+          name={
+            flash === 'off'
+              ? 'flash-off'
+              : flash === 'on'
+              ? 'flash-on'
+              : 'flash-auto'
+          }
           size={28}
-          color="white"
+          color={
+            flash === 'off'
+              ? 'white'
+              : flash === 'on'
+              ? 'yellow'
+              : 'deepskyblue'
+          }
         />
       </TouchableOpacity>
+
 
     </View>
   );
