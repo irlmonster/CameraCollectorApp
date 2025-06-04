@@ -34,7 +34,7 @@ export default function Page() {
       activeOpacity={0.8}
     >
       {/* Pulserande LOGO */}
-      <Animated.View style={{ transform: [{ scale: scaleAnim }], marginBottom: 12 }}>
+      <Animated.View style={{ transform: [{ scale: scaleAnim }], marginBottom: 10 }}>
         <Image
           source={require('../assets/images/recye.png')}
           style={{ width: 240, height: 240, resizeMode: 'contain' }}
@@ -42,7 +42,7 @@ export default function Page() {
       </Animated.View>
 
       {/* Diskret text */}
-      <Text style={{ color: '#5faf45', fontSize: 12, opacity: 0.4, fontStyle: 'italic' }}>
+      <Text style={{ color: '#5faf45', marginBottom: 180, fontSize: 12, opacity: 0.3, fontStyle: 'italic' }}>
         A sustainable chain, where your effort creates value.
       </Text>
     </TouchableOpacity>

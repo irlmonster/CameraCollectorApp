@@ -246,20 +246,21 @@ const styles = StyleSheet.create({
   },
 
   toast: {
-    position: 'absolute',
-    bottom: 100,
-    left: 20,
-    right: 20,
-    backgroundColor: '#333',
-    padding: 12,
-    borderRadius: 20,
-    alignItems: 'center',
-  },
-
-  toastText: {
-    color: 'white',
-    fontSize: 14,
-  },
+  position: 'absolute',
+  top: 100,
+  left: 20,
+  right: 20,
+  backgroundColor: 'rgba(0,0,0,0.4)',
+  paddingVertical: 10,
+  paddingHorizontal: 16,
+  borderRadius: 8,
+  alignItems: 'center',
+  zIndex: 999, // säkerställer att den ligger över
+},
+toastText: {
+  color: 'white',
+  fontSize: 14,
+},
 
   backgroundImage: {
   flex: 1,

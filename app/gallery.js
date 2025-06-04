@@ -1,14 +1,15 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text } from 'react-native';
+import { MaterialIcons } from '@expo/vector-icons'; // <-- Lägg till!
+import { useEffect, useState } from 'react';
+import { Text, View } from 'react-native';
 import GalleryScreen from '../components/GalleryScreen';
-import { loadSavedImages, deleteImages } from '../utils/storage';
 import styles from '../styles/styles';
+import { deleteImages, loadSavedImages } from '../utils/storage';
 
 export default function Page() {
   const [savedImages, setSavedImages] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
   const [modalImageUri, setModalImageUri] = useState(null);
-  const [message, setMessage] = useState(''); // <-- Toast state!
+  const [message, setMessage] = useState(''); // Toast state!
 
   const showToast = (text) => {
     console.log('🔔 Toast:', text);
@@ -22,10 +23,10 @@ export default function Page() {
     try {
       const images = await loadSavedImages();
       setSavedImages(images);
-      showToast(`🖼️ Hittade ${images.length} bilder`);
+      showToast(`success|Hittade ${images.length} bilder`);
     } catch (err) {
       console.error('Kunde inte läsa bilder:', err);
-      showToast('❌ Fel vid laddning av bilder');
+      showToast('error|Fel vid laddning av bilder');
     }
   };
 
@@ -44,12 +45,12 @@ export default function Page() {
   const deleteSelectedImages = async () => {
     try {
       await deleteImages(selectedImages);
-      showToast(`🗑 Raderade ${selectedImages.length} bilder`);
+      showToast(`success|Raderade ${selectedImages.length} bilder`);
       setSelectedImages([]);
       loadImages();
     } catch (err) {
       console.error('❌ Kunde inte radera bilder:', err);
-      showToast('❌ Radering misslyckades');
+      showToast('error|Radering misslyckades');
     }
   };
 
@@ -66,11 +67,30 @@ export default function Page() {
       />
 
       {/* 🔔 Toast */}
-      {message !== '' && (
-        <View style={styles.toast}>
-          <Text style={styles.toastText}>{message}</Text>
-        </View>
-      )}
+      {message !== '' && (() => {
+        const [type, text] = message.split('|');
+
+        let iconName = '';
+        let iconColor = '';
+
+        if (type === 'success') {
+          iconName = 'check-circle';
+          iconColor = '#5faf45';
+        } else if (type === 'error') {
+          iconName = 'error';
+          iconColor = '#ff4444';
+        } else {
+          iconName = 'info';
+          iconColor = '#aaa';
+        }
+
+        return (
+          <View style={styles.toast}>
+            <MaterialIcons name={iconName} size={20} color={iconColor} style={{ marginRight: 8 }} />
+            <Text style={styles.toastText}>{text}</Text>
+          </View>
+        );
+      })()}
     </>
   );
 }
