@@ -21,7 +21,7 @@ export default function GalleryScreen({
         alignItems: 'center',
         paddingHorizontal: 25,   
         paddingVertical: 0,      
-        marginTop: 10,           
+        marginTop: 20,           
       }}>
         <TouchableOpacity
           style={[styles.backButton, { opacity: 1 }]}
