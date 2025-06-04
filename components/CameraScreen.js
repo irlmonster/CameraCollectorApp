@@ -1,7 +1,9 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView } from 'expo-camera';
 import { TouchableOpacity, View } from 'react-native';
+import { Colors } from '../constants/Colors';
 import styles from '../styles/styles';
+
 
 export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, onViewImagesPress, flash, setFlash }) {
 
@@ -66,7 +68,7 @@ export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, 
               ? 'white'
               : flash === 'on'
               ? 'yellow'
-              : 'deepskyblue'
+              : Colors.light.primary
           }
         />
       </TouchableOpacity>
