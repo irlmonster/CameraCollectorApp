@@ -4,6 +4,7 @@ import Toast from '../components/Toast'; // NY
 import { deleteImages, loadSavedImages } from '../utils/storage';
 import { showToast } from '../utils/toast'; // behåll denna
 
+
 export default function Page() {
   const [savedImages, setSavedImages] = useState([]);
   const [selectedImages, setSelectedImages] = useState([]);
@@ -15,19 +16,15 @@ export default function Page() {
     const images = await loadSavedImages();
     setSavedImages(images);
     if (show) {
-      showToast(`success|Hittade ${images.length} bilder`, setMessage);
+      showToast(`success|folder-multiple-image|Hittade ${images.length} bilder`, setMessage);
     }
   } catch (err) {
     console.error('Kunde inte läsa bilder:', err);
     if (show) {
-      showToast('error|Fel vid laddning av bilder', setMessage);
+      showToast('error|alert-circle|Fel vid laddning av bilder', setMessage);
     }
   }
-};
-
-
-
-    
+};   
 
   useEffect(() => {
     loadImages();
@@ -41,17 +38,27 @@ export default function Page() {
     }
   };
 
-  const deleteSelectedImages = async () => {
+  const pluralize = (count, singular, plural) => {
+  return count === 1 ? singular : plural;
+};
+
+const deleteSelectedImages = async () => {
   try {
     await deleteImages(selectedImages);
-    showToast(`error|Raderade ${selectedImages.length} bilder`, setMessage);
+
+    const count = selectedImages.length;
+    const text = `${count} ${pluralize(count, 'bild raderad', 'bilder raderade')}`;
+
+    showToast(`success|trash-can|${text}`, setMessage);
+
     setSelectedImages([]);
     loadImages(false); // laddar bilder men SKIPPAR toast!
   } catch (err) {
     console.error('❌ Kunde inte radera bilder:', err);
-    showToast('error|Radering misslyckades', setMessage);
+    showToast('error|alert-circle|Radering misslyckades', setMessage);
   }
 };
+
 
 
   return (

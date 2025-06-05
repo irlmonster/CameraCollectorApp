@@ -1,7 +1,7 @@
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialCommunityIcons } from '@expo/vector-icons'; // <-- BYT till MaterialCommunityIcons
 import { useEffect, useRef } from 'react';
 import { Animated, Text } from 'react-native';
-import styles from '../styles/styles'; // eller egna toast-styles
+import styles from '../styles/styles';
 
 export default function Toast({ message }) {
   const fadeAnim = useRef(new Animated.Value(0)).current;
@@ -28,25 +28,26 @@ export default function Toast({ message }) {
 
   if (message === '') return null;
 
-  const [type, text] = message.split('|');
+  // Nu: SPLITTA 3 delar!
+  const parts = message.split('|');
+  const type = parts[0];
+  const iconName = parts[1];
+  const text = parts.slice(2).join('|'); // resten som text
 
-  let iconName = '';
+  // Sätt färg beroende på type
   let iconColor = '';
 
   if (type === 'success') {
-    iconName = 'check-circle';
     iconColor = '#5faf45';
   } else if (type === 'error') {
-    iconName = 'error';
     iconColor = '#ff4444';
   } else {
-    iconName = 'info';
     iconColor = '#aaa';
   }
 
   return (
     <Animated.View style={[styles.toast, { opacity: fadeAnim }]}>
-      <MaterialIcons name={iconName} size={20} color={iconColor} style={{ marginRight: 8 }} />
+      <MaterialCommunityIcons name={iconName} size={20} color={iconColor} style={{ marginRight: 8 }} />
       <Text style={styles.toastText}>{text}</Text>
     </Animated.View>
   );

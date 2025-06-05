@@ -271,7 +271,6 @@ toastText: {
   textAlign: 'center',
 },
 
-
   backgroundImage: {
   flex: 1,
   resizeMode: 'cover',
@@ -282,9 +281,6 @@ overlay: {
   backgroundColor: 'rgba(0, 0, 0, 0.7)', // <-- justera transparens här!
   padding: 16,
 },
-
-
-
 
 
 

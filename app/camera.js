@@ -5,9 +5,11 @@ import { Text, View } from 'react-native';
 import CameraScreen from '../components/CameraScreen';
 import PreviewScreen from '../components/PreviewScreen';
 import Toast from '../components/Toast';
+import { CLASS_ICONS } from '../constants/icons';
 import styles from '../styles/styles';
 import { saveImageToLocalStorage } from '../utils/storage';
 import { showToast } from '../utils/toast';
+
 
 
 export default function Page() {
@@ -51,7 +53,7 @@ export default function Page() {
           onClassSelect={async (klass) => {
             const path = await saveImageToLocalStorage(photo.uri, klass);
             if (path) {
-              showToast(`success|Bild sparad i "${klass}"`, setMessage);
+              showToast(`success|${CLASS_ICONS[klass] || 'help-circle'}|Bild sparad i '${klass}'`, setMessage);
             } else {
               showToast(`error|Misslyckades spara bild`, setMessage);
             }
