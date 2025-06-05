@@ -213,11 +213,12 @@ const styles = StyleSheet.create({
     textAlign: 'center',
   },
 
-  zoomText: {
-    color: 'rgba(241, 241, 241, 0.2)',
-    fontSize: 14,
+  gallaryText: {
+    color: 'rgba(82, 82, 82, 0.9)',
+    fontSize: 12,
     textAlign: 'center',
     marginVertical: 10,
+    fontStyle: 'italic',
   },
 
   modalOverlay: {
@@ -226,7 +227,7 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0.9)',
+    backgroundColor: 'rgba(82, 82, 82, 0.9)',
     justifyContent: 'center',
     alignItems: 'center',
     zIndex: 999,
@@ -244,6 +245,51 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
+
+  progressContainer: {
+    position: 'absolute',
+    bottom: 310, 
+    left: 20,
+    right: 20,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: 'rgba(255, 255, 255, 0.2)',
+    overflow: 'hidden',
+  },
+
+  progressBar: {
+    height: '100%',
+    backgroundColor: 'rgba(95, 175, 69, 0.7)', 
+  },
+
+  flashButton: {
+    position: 'absolute',
+    top: 50,
+    right: 20,
+    padding: 10,
+    borderRadius: 25,
+    borderWidth: 2,
+    borderColor: 'rgba(95, 175, 69, 0.5)',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    borderRadius: 8,
+  },
+
+  zoomTextContainer: {
+    position: 'absolute',
+    bottom: 330, 
+    alignSelf: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
+  },
+
+  zoomText: {
+    color: 'rgba(95, 175, 69, 0.7)',
+    fontSize: 18,
+    fontWeight: 'bold',
+  },
+
 
 toast: {
   position: 'absolute',

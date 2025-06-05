@@ -57,7 +57,7 @@ export default function GalleryScreen({
 
       {/* Text under knappar */}
       <View style={{ alignItems: 'center', margin: 0}}>
-        <Text style={[styles.zoomText, { opacity: 0.7 }]}>
+        <Text style={[styles.gallaryText, { opacity: 0.7 }]}>
           Klicka för att markera / Håll in för zoom
         </Text>
       </View>

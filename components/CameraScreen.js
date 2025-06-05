@@ -1,19 +1,80 @@
 import { MaterialIcons } from '@expo/vector-icons';
 import { CameraView } from 'expo-camera';
-import { TouchableOpacity, View } from 'react-native';
+import { useRef, useState } from 'react';
+import { Animated, Text, TouchableOpacity, View } from 'react-native';
+import { PinchGestureHandler, State } from 'react-native-gesture-handler'; // Lägg till State här
 import { Colors } from '../constants/Colors';
 import styles from '../styles/styles';
 
+export default function CameraScreen({
+  cameraRef,
+  setCameraRef,
+  onCapturePress,
+  onViewImagesPress,
+  flash,
+  setFlash,
+}) {
+  const [zoom, setZoom] = useState(0);
+  const baseZoom = useRef(0);
+  const fadeAnim = useRef(new Animated.Value(0)).current;
+  const [isZooming, setIsZooming] = useState(false);
 
-export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, onViewImagesPress, flash, setFlash }) {
+  // 1) Hantera själva “skruva zoom”-värdet
+  const handlePinchGesture = (event) => {
+    const scale = event.nativeEvent.scale;
+
+    // Räkna ut nytt zoomvärde baserat på scale och baseZoom
+    let newZoom = Math.min(
+      Math.max((scale - 1) * 0.3 + baseZoom.current, 0),
+      1
+    );
+    setZoom(newZoom);
+  };
+
+  // 2) Hantera när pinchgesturen börjar/slutar (fade in/out)
+  const handlePinchStateChange = (event) => {
+    const { state, oldState } = event.nativeEvent;
+
+    if (state === State.BEGAN) {
+      // Börjar zooma: fade in
+      setIsZooming(true);
+      Animated.timing(fadeAnim, {
+        toValue: 1,
+        duration: 200,
+        useNativeDriver: true,
+      }).start();
+    }
+
+    // När gesturen går från ACTIVE → END (alltså fingrar lyft): fade out
+    if (oldState === State.ACTIVE && state === State.END) {
+      // Spara baseZoom så nästa pinch startar från aktuell zoom
+      baseZoom.current = zoom;
+
+      Animated.timing(fadeAnim, {
+        toValue: 0,
+        duration: 500,
+        useNativeDriver: true,
+      }).start(() => {
+        setIsZooming(false);
+      });
+    }
+  };
 
   return (
     <View style={styles.container}>
-      <CameraView
-        style={styles.camera}
-        ref={setCameraRef}
-        flash={flash}
-      />
+      <PinchGestureHandler
+        onGestureEvent={handlePinchGesture}
+        onHandlerStateChange={handlePinchStateChange}
+      >
+        <View style={{ flex: 1 }}>
+          <CameraView
+            style={styles.camera}
+            ref={setCameraRef}
+            flash={flash}
+            zoom={zoom}
+          />
+        </View>
+      </PinchGestureHandler>
 
       <View style={styles.buttonContainer}>
         <TouchableOpacity
@@ -25,7 +86,7 @@ export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, 
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.viewImagesButton}
+          style={[styles.viewImagesButton, { opacity: 0.5 }]}
           activeOpacity={0.7}
           onPress={onViewImagesPress}
         >
@@ -33,18 +94,10 @@ export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, 
         </TouchableOpacity>
       </View>
 
-      {/* Flash toggle button */}
+      {/* Flash-toggle */}
       <TouchableOpacity
-        style={{
-          position: 'absolute',
-          top: 50,
-          right: 20,
-          padding: 10,
-          backgroundColor: 'rgba(0,0,0,0.5)',
-          borderRadius: 8,
-        }}
+        style={styles.flashButton}
         onPress={() => {
-          // Växla mellan 'off', 'on', 'auto'
           if (flash === 'off') {
             setFlash('on');
           } else if (flash === 'on') {
@@ -73,7 +126,14 @@ export default function CameraScreen({ cameraRef, setCameraRef, onCapturePress, 
         />
       </TouchableOpacity>
 
+      {/* Zoom-text + progressbar */}
+      <Animated.View style={[styles.zoomTextContainer, { opacity: fadeAnim }]}>
+        <Text style={styles.zoomText}>{(1 + zoom * 4).toFixed(1)}x</Text>
+      </Animated.View>
 
+      <Animated.View style={[styles.progressContainer, { opacity: fadeAnim }]}>
+        <View style={[styles.progressBar, { width: `${zoom * 100}%` }]} />
+      </Animated.View>
     </View>
   );
 }
