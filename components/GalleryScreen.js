@@ -24,7 +24,27 @@ export default function GalleryScreen({
           opacity: 0.1,
           width: 300,
           height: 300,
-          top: '50%',
+          top: '30%',
+          left: '35%',
+          transform: [
+            { translateX: -75 },
+            { translateY: -75 },
+          ],
+          zIndex: 0,
+          resizeMode: 'contain',
+          pointerEvents: 'none', // så den inte stör klick
+        }}
+      />
+
+      {/* 2️⃣ Watermark-logga */}
+      <Image
+        source={require('../assets/images/recye.png')}
+        style={{
+          position: 'absolute',
+          opacity: 0.1,
+          width: 300,
+          height: 300,
+          top: '60%',
           left: '35%',
           transform: [
             { translateX: -75 },
