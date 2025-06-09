@@ -17,7 +17,7 @@ export default function RootLayout() {
       if (pathname !== '/') {
         router.push('/');
       }
-    }, 30000); // 30 sek (ändra till vad du vill)
+    }, 60000); // 30 sek (ändra till vad du vill)
   };
 
   const handleUserActivity = () => {

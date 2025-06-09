@@ -21,10 +21,10 @@ export default function GalleryScreen({
         source={require('../assets/images/recye.png')}
         style={{
           position: 'absolute',
-          opacity: 0.1,
+          opacity: 0.2,
           width: 300,
           height: 300,
-          top: '30%',
+          top: '55%',
           left: '35%',
           transform: [
             { translateX: -75 },
@@ -37,11 +37,12 @@ export default function GalleryScreen({
       />
 
       {/* 2️⃣ Watermark-logga */}
+{/*       
       <Image
         source={require('../assets/images/recye.png')}
         style={{
           position: 'absolute',
-          opacity: 0.1,
+          opacity: 0.2,
           width: 300,
           height: 300,
           top: '60%',
@@ -55,6 +56,7 @@ export default function GalleryScreen({
           pointerEvents: 'none', // så den inte stör klick
         }}
       />
+ */}
 
       {/* 3️⃣ Innehåll */}
       <View style={{ zIndex: 1, flex: 1 }}>
