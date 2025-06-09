@@ -23,7 +23,19 @@ export default function CameraScreen({
   const handlePinchGesture = (event) => {
     const scale = event.nativeEvent.scale;
 
-    // Räkna ut nytt zoomvärde baserat på scale och baseZoom
+    // Visa progressbar först när scale är "riktig pinch"
+    if (scale > 1.02 || scale < 0.98) {
+      if (!isZooming) {
+        setIsZooming(true);
+        Animated.timing(fadeAnim, {
+          toValue: 1,
+          duration: 200,
+          useNativeDriver: true,
+        }).start();
+      }
+    }
+
+    // Räkna ut nytt zoomvärde
     let newZoom = Math.min(
       Math.max((scale - 1) * 0.3 + baseZoom.current, 0),
       1
@@ -35,19 +47,7 @@ export default function CameraScreen({
   const handlePinchStateChange = (event) => {
     const { state, oldState } = event.nativeEvent;
 
-    if (state === State.BEGAN) {
-      // Börjar zooma: fade in
-      setIsZooming(true);
-      Animated.timing(fadeAnim, {
-        toValue: 1,
-        duration: 200,
-        useNativeDriver: true,
-      }).start();
-    }
-
-    // När gesturen går från ACTIVE → END (alltså fingrar lyft): fade out
     if (oldState === State.ACTIVE && state === State.END) {
-      // Spara baseZoom så nästa pinch startar från aktuell zoom
       baseZoom.current = zoom;
 
       Animated.timing(fadeAnim, {
