@@ -1,5 +1,5 @@
 import { router } from 'expo-router';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   Animated,
   Image,
@@ -9,6 +9,7 @@ import {
 
 export default function Page() {
   const scaleAnim = useRef(new Animated.Value(1)).current;
+  const [isNavigating, setIsNavigating] = useState(false);
 
   useEffect(() => {
     Animated.loop(
@@ -27,10 +28,16 @@ export default function Page() {
     ).start();
   }, []);
 
+  const handlePress = () => {
+    if (isNavigating) return; // förhindra dubbeltryck
+    setIsNavigating(true);
+    router.push('/camera');
+  };
+
   return (
     <TouchableOpacity
       style={{ flex: 1, justifyContent: 'center', alignItems: 'center', backgroundColor: '#151718' }}
-      onPress={() => router.push('/camera')}
+      onPress={handlePress}
       activeOpacity={0.8}
     >
       {/* Pulserande LOGO */}

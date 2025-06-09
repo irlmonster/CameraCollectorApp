@@ -1,8 +1,38 @@
-import { Stack } from 'expo-router';
-import { SafeAreaView, StatusBar } from 'react-native';
+import { Stack, usePathname, useRouter } from 'expo-router';
+import { useEffect, useRef } from 'react';
+import { SafeAreaView, StatusBar, TouchableWithoutFeedback } from 'react-native';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 export default function RootLayout() {
+  const timerRef = useRef(null);
+  const router = useRouter();
+  const pathname = usePathname();
+
+  const resetTimer = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = setTimeout(() => {
+      // Navigera till index bara om vi inte redan är på index
+      if (pathname !== '/') {
+        router.push('/');
+      }
+    }, 30000); // 30 sek (ändra till vad du vill)
+  };
+
+  const handleUserActivity = () => {
+    resetTimer();
+  };
+
+  useEffect(() => {
+    resetTimer();
+    return () => {
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
+      }
+    };
+  }, [pathname]); // ← NYTT! Kör om när vi byter sida
+
   return (
     <>
       <StatusBar
@@ -12,19 +42,21 @@ export default function RootLayout() {
       />
 
       <GestureHandlerRootView style={{ flex: 1 }}>
-        <SafeAreaView
-          style={{
-            flex: 1,
-            backgroundColor: '#393939',
-          }}
-        >
-          <Stack
-            screenOptions={{
-              headerShown: false,
-              contentStyle: { backgroundColor: 'transparent' },
+        <TouchableWithoutFeedback onPress={handleUserActivity} onTouchStart={handleUserActivity}>
+          <SafeAreaView
+            style={{
+              flex: 1,
+              backgroundColor: '#393939',
             }}
-          />
-        </SafeAreaView>
+          >
+            <Stack
+              screenOptions={{
+                headerShown: false,
+                contentStyle: { backgroundColor: 'transparent' },
+              }}
+            />
+          </SafeAreaView>
+        </TouchableWithoutFeedback>
       </GestureHandlerRootView>
     </>
   );
