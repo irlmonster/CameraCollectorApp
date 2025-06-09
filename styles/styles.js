@@ -6,6 +6,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#212121',
   },
 
+  gallaryBackground: {
+    flex: 1,
+  },
+
   center: {
     flex: 1,
     justifyContent: 'center',
@@ -327,6 +331,8 @@ overlay: {
   backgroundColor: 'rgba(0, 0, 0, 0.7)', // <-- justera transparens här!
   padding: 16,
 },
+
+
 
 
 
