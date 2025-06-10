@@ -55,9 +55,7 @@ const styles = StyleSheet.create({
     width: '28%',
     aspectRatio: 2.5,
     flexDirection: 'row',
-    // gap: 8,  <-- TA BORT gap!!
   },
-
 
   classText: {
     fontSize: 14,
@@ -70,7 +68,6 @@ const styles = StyleSheet.create({
     width: '100%',
     alignItems: 'center',
   },
-
 
   captureButton: {
   width: 80,
@@ -294,7 +291,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 
-
 toast: {
   position: 'absolute',
   top : 120,
@@ -303,7 +299,7 @@ toast: {
   backgroundColor: 'rgba(57, 57, 57, 0.5)',
   paddingVertical: 14,
   paddingHorizontal: 20,
-  borderRadius: 20, // rund popup-stil
+  borderRadius: 20, 
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'center',
@@ -328,13 +324,9 @@ toastText: {
 
 overlay: {
   flex: 1,
-  backgroundColor: 'rgba(0, 0, 0, 0.7)', // <-- justera transparens här!
+  backgroundColor: 'rgba(0, 0, 0, 0.7)', 
   padding: 16,
 },
-
-
-
-
 
 });
 

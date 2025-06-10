@@ -17,7 +17,7 @@ export default function RootLayout() {
       if (pathname !== '/') {
         router.push('/');
       }
-    }, 60000); // 30 sek (ändra till vad du vill)
+    }, 60000); // 60 sek 
   };
 
   const handleUserActivity = () => {
@@ -31,7 +31,7 @@ export default function RootLayout() {
         clearTimeout(timerRef.current);
       }
     };
-  }, [pathname]); // ← NYTT! Kör om när vi byter sida
+  }, [pathname]); 
 
   return (
     <>
@@ -53,6 +53,7 @@ export default function RootLayout() {
               screenOptions={{
                 headerShown: false,
                 contentStyle: { backgroundColor: 'transparent' },
+                animation: 'slide_from_left',
               }}
             />
           </SafeAreaView>

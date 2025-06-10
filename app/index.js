@@ -16,12 +16,12 @@ export default function Page() {
       Animated.sequence([
         Animated.timing(scaleAnim, {
           toValue: 1.1,
-          duration: 1000,
+          duration: 1200,
           useNativeDriver: true,
         }),
         Animated.timing(scaleAnim, {
           toValue: 1,
-          duration: 1000,
+          duration: 1200,
           useNativeDriver: true,
         }),
       ])
